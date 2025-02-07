@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Enregistrer une réclamation{% endblock %}
+
+{% block page_title %}
+    <i class="bi bi-plus-circle"></i> {{ block('title') }}
+{% endblock %}
+
+{% block body %}
+    {{ component('ClaimForm', {
+        form: form,
+        claim: claim,
+    }) }}
+{% endblock %}

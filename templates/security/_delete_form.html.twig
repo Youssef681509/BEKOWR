@@ -1,0 +1,15 @@
+<form method="post" action="{{ path('app_user_delete', {'id': user.id }) }}" class="me-4" onsubmit=" return confirm('Êtes-vous sûr de vouloire supprimer cette élement ?')">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
+    <a href="{{ path('app_dashboard_index') }}" class="btn btn-light">
+        <i class="bi bi-arrow-left-circle"></i>
+        Retour
+    </a>
+    <a href="{{ path( 'app_user_edit', { id: user.id } ) }}" class="btn btn-success">
+        <i class="bi bi-pencil" aria-hidden="true"></i>
+        Modifier
+    </a>
+    <button class="btn btn-danger">
+        <i class="bi bi-trash"></i>
+        Supprimer
+    </button>
+</form>

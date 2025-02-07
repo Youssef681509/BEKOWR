@@ -1,0 +1,31 @@
+    <table class="table table-borderless table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>Id</th>
+                <th>Code</th>
+                <th>Nom</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for country in countries %}
+            <tr>
+                <td>{{ country.id }}</td>
+                <td>{{ country.code }}</td>
+                <td>{{ country.name }}</td>
+                <td>
+                    <a href="{{ path('app_donation_countries_show', {'id': country.id}) }}" class="btn btn-sm btn-info">
+                        <i class="bi bi-eye"></i>
+                    </a>
+                    <a href="{{ path('app_donation_countries_edit', {'id': country.id}) }}" class="btn btn-sm btn-success">
+                        <i class="bi bi-pen"></i>
+                    </a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>

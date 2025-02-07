@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Pays{% endblock %}
+
+{% block page_title %}
+    {{ block('title') }}
+{% endblock %}
+
+{% block page_action %}
+    <a href="{{ path('app_donation_countries_new') }}" class="btn btn-primary">
+        <i class="bi bi-plus"></i> Ajouter un pays
+    </a>
+{% endblock %}
+
+{% block body %}
+    {% include "_partials/_loader.html.twig" with {link: path('app_countries_all')} %}
+{% endblock %}

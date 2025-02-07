@@ -1,0 +1,5 @@
+{% for label, messages in app.flashes %}
+    {% for message in messages %}
+        <twig:Alert type="{{ label }}" message="{{ message|raw }}" />
+    {% endfor %}
+{% endfor %}

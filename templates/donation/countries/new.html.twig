@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Enregistrer un pays{% endblock %}
+
+{% block page_title %}
+   <i class="bi bi-plus"></i> {{ block('title') }}
+{% endblock %}
+
+{% block body %}
+   {{ component('CountriesForm', {
+        form: form,
+        countries: country
+   }) }}
+{% endblock %}
