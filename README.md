@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ### Support technique
 
  - Support version php-version 8.3.3 >=
@@ -25,3 +26,6 @@
 - Installation fichier asset
 
 `php bin/console asset-map:compile`
+=======
+# BEKOWR
+>>>>>>> 36607b829cfc78c409f944d0d83757bd072eb35c
