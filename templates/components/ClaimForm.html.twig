@@ -1,0 +1,28 @@
+<div{{ attributes }}>
+    {{ form_start(form) }}
+    <div class="row">
+        <div class="col">{{ form_row(form.dateClaim) }}</div>
+        <div class="col">{{ form_row(form.dateClosing) }}</div>
+        <div class="col">{{ form_row(form.typeOfClaim) }}</div>    
+    </div>
+    <div class="row">
+        <div class="col">{{ form_row(form.donor) }}</div>
+        <div class="col">{{ form_row(form.beneficiary) }}</div>
+    </div>
+    <div class="row">
+        {{ form_row(form.amount) }}
+    </div>
+    <div class="row">
+        {{ form_row(form.obs) }}
+    </div>
+
+    {{ form_widget(form) }}
+    <button class="btn btn-primary">
+        <i class="bi bi-sd-card"></i> {{ button_label|default('Enregistrer') }}
+    </button>
+    <a href="{{ path('app_claim_index') }}" class="btn btn-light">
+        <i class="bi bi-arrow-left"></i>
+        Retour
+    </a>
+    {{ form_end(form) }}
+</div>

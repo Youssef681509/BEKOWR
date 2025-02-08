@@ -1,0 +1,10 @@
+{# templates/components/Alert.html.twig #}
+<div{{ attributes }} data-turbo-temporary>
+    <div class="alert alert-{{ this.type }} alert-dismissible fade show">
+        <i class="bi {{ this.fetchIcon }} me-2"></i>
+        {{ this.message|raw }}
+        {% if this.canBeDismissed %}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        {% endif %}
+    </div>
+</div>

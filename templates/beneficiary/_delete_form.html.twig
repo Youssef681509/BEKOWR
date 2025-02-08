@@ -1,0 +1,16 @@
+<form method="post" action="{{ path('app_beneficiary_delete', {'id': beneficiary.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ beneficiary.id) }}">
+    
+     <a href="{{ path('app_beneficiary_index') }}" class="btn btn-light">
+       <i class="bi bi-arrow-left"></i> Retour
+    </a>
+
+    <a href="{{ path('app_beneficiary_edit', {'id': beneficiary.id}) }}" class="btn btn-success">
+        <i class="bi bi-pencil"></i> Modifier
+    </a>
+
+    <button class="btn btn-danger">
+        <i class="bi bi-trash"></i>
+        Supprimer
+    </button>
+</form>

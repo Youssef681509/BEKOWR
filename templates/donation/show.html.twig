@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Donation{% endblock %}
+
+{% block body %}
+    <h1>Donation</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ donation.id }}</td>
+            </tr>
+            <tr>
+                <th>DateOfDonation</th>
+                <td>{{ donation.dateOfDonation ? donation.dateOfDonation|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>DateOfReceipt</th>
+                <td>{{ donation.dateOfReceipt ? donation.dateOfReceipt|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>DonAmount</th>
+                <td>{{ donation.donAmount }}</td>
+            </tr>
+            <tr>
+                <th>DonCurrency</th>
+                <td>{{ donation.donCurrency }}</td>
+            </tr>
+            <tr>
+                <th>StatusOfDonation</th>
+                <td>{{ donation.statusOfDonation }}</td>
+            </tr>
+            <tr>
+                <th>PaymentMethod</th>
+                <td>{{ donation.paymentMethod }}</td>
+            </tr>
+            <tr>
+                <th>PasswordDon</th>
+                <td>{{ donation.passwordDon }}</td>
+            </tr>
+            <tr>
+                <th>ExtCode</th>
+                <td>{{ donation.extCode }}</td>
+            </tr>
+            <tr>
+                <th>CreatedAt</th>
+                <td>{{ donation.createdAt ? donation.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>UpdateAt</th>
+                <td>{{ donation.updateAt ? donation.updateAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Obs</th>
+                <td>{{ donation.obs }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_donation_index') }}">back to list</a>
+
+    <a href="{{ path('app_donation_edit', {'id': donation.id}) }}">edit</a>
+
+    {{ include('donation/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Informations de la banque{% endblock %}
+
+{% block page_title %}
+   <i class="bi bi-info-circle"></i> {{ block('title') }}    
+{% endblock %}
+
+{% block page_action %}
+    {{ include('bank/_delete_form.html.twig') }}
+{% endblock %}
+
+{% block body %}
+    <table class="table table-bordered table-striped">
+        <tbody>
+            <tr>
+                <th>Code</th>
+                <td>{{ bank.extCode }}</td>
+            </tr>
+            <tr>
+                <th>Nom ou raison sociale</th>
+                <td>{{ bank.companyName }}</td>
+            </tr>
+            <tr>
+                <th>Adresse</th>
+                <td>{{ bank.address }}</td>
+            </tr>
+            <tr>
+                <th>Ville</th>
+                <td>{{ bank.city ? bank.city.name : '' }}</td>
+            </tr>
+            <tr>
+                <th>Pays</th>
+                <td>{{ bank.city ? bank.city.country.name : '' }}</td>
+            </tr>
+            <tr>
+                <th>Téléphone 1</th>
+                <td>{{ bank.phone1 }}</td>
+            </tr>
+            <tr>
+                <th>Téléphone 2</th>
+                <td>{{ bank.phone2 }}</td>
+            </tr>
+            <tr>
+                <th>Téléphone 3</th>
+                <td>{{ bank.phone3 }}</td>
+            </tr>
+            <tr>
+                <th>Fax</th>
+                <td>{{ bank.fax }}</td>
+            </tr>
+            <tr>
+                <th>Mail</th>
+                <td>{{ bank.mail }}</td>
+            </tr>
+            <tr>
+                <th>Localisation</th>
+                <td>{{ bank.location }}</td>
+            </tr>
+            <tr>
+                <th>RIB</th>
+                <td>{{ bank.rib }}</td>
+            </tr>
+            <tr>
+                <th>Observation</th>
+                <td>{{ bank.obs }}</td>
+            </tr>
+            <tr>
+                <th>Date Creat.</th>
+                <td>{{ bank.createdAt ? bank.createdAt|date('d/m/Y H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Date modif.</th>
+                <td>{{ bank.updateAt ? bank.updateAt|date('d/m/Y H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+{% endblock %}

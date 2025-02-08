@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Liste des utilisateurs
+{% endblock %}
+{# 
+{% block section_title %}
+	<twig:Icon type="people-fill" />
+	Liste des utilisateurs
+{% endblock %} #}
+
+{# {% block card_filter %}
+	{{ include('security/_userFormFilter.html.twig', {form: form}) }}
+{% endblock %} #}
+{# 
+{% block body %}
+	{% if is_authorise('create', 'OUSR') %}
+		<twig:ButtonLink type="primary" link="{{ path('app_register') }}">
+			<twig:Icon type="plus-circle" />
+			Nouveau
+		</twig:ButtonLink>
+	{% endif %}
+{% endblock %} #}
+
+{% block page_title %}
+	<i class="bi bi-people"></i> Liste des utilisateurs
+{% endblock %}
+
+{% block body %}
+
+	<a href="{{ path('app_user_register') }}" class="btn btn-primary mb-3">
+		<i class="bi bi-plus-circle-fill"></i>
+		Nouveau
+	</a>
+
+	{% include '_partials/_loader.html.twig' with {link: path('app_user_all') } %}
+
+{% endblock %}

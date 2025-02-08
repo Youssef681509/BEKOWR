@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier les information du pays{% endblock %}
+
+{% block page_title %}
+   <i class="bi bi-pencil"></i> {{ block('title') }}
+{% endblock %}
+
+{% block body %}
+    {{ component('CountriesForm', {
+        form: form,
+        countries: country
+   }) }}
+{% endblock %}

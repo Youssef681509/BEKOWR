@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Modifier cette utilisateur
+{% endblock %}
+
+{% block page_title %}
+    <i class="bi bi-person-fill-up me-2" aria-hidden="true"></i>
+    Modifier cette utilisateur
+{% endblock %}
+
+{% block body %}
+    {# {{ component('UserForm',
+        {
+            form: form,
+            user: user
+        }
+    ) }} #}
+
+    {% include 'security/_form.html.twig' with {form: form} %}
+
+{% endblock %}
