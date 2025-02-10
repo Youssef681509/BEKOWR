@@ -1,3 +1,9 @@
+{% block title %}{% endblock %}
+
+{% block page_title %}    
+{% endblock %}
+
+{% block body %}
 <div{{ attributes }}>
     {{ form_start(form) }}
     <div class="row">
@@ -11,6 +17,9 @@
         </div>
     </div>
     <div class="row">
+        <div class="col">{{ form_row(form.status) }}</div>
+    </div>
+    <div class="row">
         <div class="col-3">{{ form_row(form.civility) }}</div>
         <div class="col-3">{{ form_row(form.dateOfBirth) }}</div>
         <div class="col-6">{{ form_row(form.placeOfBirth) }}</div>
@@ -19,6 +28,9 @@
         <div class="col-3">{{ form_row(form.titleOfIdDoc) }}</div>
         <div class="col-5">{{ form_row(form.idNumber) }}</div>
         <div class="col-4">{{ form_row(form.elecIdDoc) }}</div>
+    </div>
+    <div class="row" id="naturePieceIdentiteRow" style="display: none;">
+        <div class="col-5">{{ form_row(form.naturePieceIdentite) }}</div>
     </div>
     <div class="row">
         <div class="col-9">{{ form_row(form.mail) }}</div>
@@ -46,6 +58,7 @@
         <div class="col">{{ form_row(form.type) }}</div>
         <div class="col">{{ form_row(form.location) }}</div>
     </div>
+   
     <div class="row">
         {{ form_row(form.obs) }}
     </div>
@@ -60,3 +73,23 @@
     </a>
     {{ form_end(form) }}
 </div>
+<!-- Script pour affichage conditionnel de nature pièce d'identité -->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    var titleOfIdDoc = document.getElementById('{{ form.titleOfIdDoc.vars.id }}');
+    var naturePieceIdentiteRow = document.getElementById('naturePieceIdentiteRow');
+
+    function toggleNaturePieceIdentite() {
+        if (titleOfIdDoc.value === 'OT') {
+            naturePieceIdentiteRow.style.display = 'block';
+        } else {
+            naturePieceIdentiteRow.style.display = 'none';
+        }
+    }
+
+    titleOfIdDoc.addEventListener('change', toggleNaturePieceIdentite);
+    toggleNaturePieceIdentite(); // Initial check
+});
+</script>
+<!-- Fin Script pour affichage conditionnel de nature pièce d'identité -->
+{% endblock %}

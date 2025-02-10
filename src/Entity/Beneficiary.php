@@ -2,13 +2,16 @@
 
 namespace App\Entity;
 
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use App\Entity\FieldExtension\CommonField;
 use App\Entity\FieldExtension\TimestampTrait;
 use App\Repository\BeneficiaryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
-use Doctrine\ORM\Mapping as ORM;
+
 
 #[ORM\HasLifecycleCallbacks]
 #[ORM\Entity(repositoryClass: BeneficiaryRepository::class)]
@@ -37,8 +40,8 @@ class Beneficiary
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $dateOfBirth = null;
 
-    #[ORM\Column(length: 140, nullable: true)]
-    private ?string $placeOfBirth = null;
+    //#[ORM\Column(length: 140, nullable: true)]
+    //private ?string $placeOfBirth = null;
 
     #[ORM\Column(length: 17, nullable: true)]
     private ?string $titleOfIdDoc = null;
@@ -61,11 +64,29 @@ class Beneficiary
     #[ORM\Column(nullable: true)]
     private ?bool $enable = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?bool $status = null;
+    // src/Entity/Beneficiary.php
+    //
+    #[ORM\ManyToOne(targetEntity: Cities::class)]
+    #[ORM\JoinColumn(nullable: false)]
 
-    //#[ORM\Column(length: 10, nullable: true)]
-    //private ?string $status = null;
+    //
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $status = null;
+    
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+    
+    public function setStatus(?string $status): static
+    {
+        $this->status = $status;
+    
+        return $this;
+    }
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $naturePieceIdentite = null;
 
     #[ORM\Column(length: 16, nullable: true)]
     private ?string $cardType = null;
@@ -90,8 +111,34 @@ class Beneficiary
         $this->donations = new ArrayCollection();
         $this->claims = new ArrayCollection();
     }
-// 
+// 0802
 
+    private ?Cities $placeOfBirth = null;
+   
+    public function getNaturePieceIdentite(): ?string
+    {
+        return $this->naturePieceIdentite;
+    }
+
+    public function setNaturePieceIdentite(?string $naturePieceIdentite): self
+    {
+        $this->naturePieceIdentite = $naturePieceIdentite;
+
+        return $this;
+    }
+    
+
+    public function getplaceOfBirth(): ?Cities
+    {
+    return $this->placeOfBirth;
+    }
+
+    public function setplaceOfBirth(?Cities $placeOfBirth): static
+    {
+    $this->placeOfBirth = $placeOfBirth;
+    return $this;
+    }
+//
      public function gethisto(): ?string {
          return $this->histo;
       }
@@ -157,19 +204,7 @@ class Beneficiary
         return $this;
     }
 
-    public function getPlaceOfBirth(): ?string
-    {
-        return $this->placeOfBirth;
-    }
-
-    public function setPlaceOfBirth(?string $placeOfBirth): static
-    {
-        $this->placeOfBirth = $placeOfBirth;
-
-        return $this;
-    }
-
-    public function getTitleOfIdDoc(): ?string
+        public function getTitleOfIdDoc(): ?string
     {
         return $this->titleOfIdDoc;
     }
@@ -249,18 +284,6 @@ class Beneficiary
     public function setEnable(?bool $enable): static
     {
         $this->enable = $enable;
-
-        return $this;
-    }
-
-    public function getStatus(): ?bool
-    {
-        return $this->status;
-    }
-
-    public function setStatus(?bool $status): static
-    {
-        $this->status = $status;
 
         return $this;
     }

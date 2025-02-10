@@ -7,6 +7,8 @@ use App\Entity\FieldExtension\TimestampTrait;
 use App\Repository\BankRepository;
 use Doctrine\ORM\Mapping as ORM;
 
+
+
 #[ORM\HasLifecycleCallbacks]
 #[ORM\Entity(repositoryClass: BankRepository::class)]
 class Bank
@@ -19,6 +21,10 @@ class Bank
     #[ORM\Column]
     private ?int $id = null;
 
+    #[ORM\ManyToOne]
+    private ?Countries $country = null;
+
+
     #[ORM\Column(length: 100, nullable: true)]
     private ?string $agency = null;
 
@@ -28,6 +34,18 @@ class Bank
     #[ORM\ManyToOne(inversedBy: 'banks')]
     private ?Cities $city = null;
 
+    
+    public function getCountry(): ?Countries
+    {
+    return $this->country;
+    }
+
+    public function setCountry(?Countries $country): static
+    {
+    $this->country = $country;
+    return $this;
+    }
+    
     
     public function setnpcontact(string $npcontact): static 
     {

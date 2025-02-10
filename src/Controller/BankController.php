@@ -11,6 +11,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use App\Repository\CitiesRepository;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 #[Route('/bank')]
 final class BankController extends AbstractController {
@@ -20,6 +22,25 @@ final class BankController extends AbstractController {
         private PaginatorInterface $paginator,
     )
     {}
+
+    #[Route('/get-cities/{countryId}', name: 'get_cities', methods: ['GET'])]
+    public function getCitiesByCountry(int $countryId, CitiesRepository $citiesRepository): JsonResponse
+    {
+        // Trouver les villes associées au pays
+        $cities = $citiesRepository->findBy(['country' => $countryId]);
+
+        // Formater la réponse en JSON
+        $data = [];
+        foreach ($cities as $city) {
+            $data[] = [
+                'id' => $city->getId(),
+                'name' => $city->getName(),
+            ];
+        }
+
+        return new JsonResponse($data);
+    }
+
 
     #[Route(name: 'app_bank_index', methods: ['GET'])]
     public function index(BankRepository $bankRepository): Response

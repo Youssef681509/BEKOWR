@@ -14,7 +14,10 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use App\Entity\Country;
+use App\Entity\Cities;
+use App\Entity\Countries;
 
 class BankType extends AbstractType
 {
@@ -25,12 +28,29 @@ class BankType extends AbstractType
         $builder
             ->add('companyName', TextType::class, $this->getConfiguration('Nom/ Raison Social', 'Nom/ Raison Social'))
             ->add('address', TextType::class, $this->getConfiguration('Adresse', 'Adresse'))
-            ->add('city', TextType::class, $this->getConfiguration('Ville'))
-            ->add('country', CountriesAutocompleteField::class, [
-                'mapped' => false,
-                'label' => 'Pays',
-                'placeholder' => 'Choisir un pays'
+            ->add('country', EntityType::class, [
+                'class' => Countries::class,
+                'choice_label' => 'name',
+                'placeholder' => 'Sélectionnez un pays',
+                'mapped' => true,
+                'required' => true,
+                'attr' => [
+                    'class' => 'country-select', //  JS fonctionne
+                ],
             ])
+            ->add('city', EntityType::class, [
+                'class' => Cities::class,
+                'choice_label' => 'name',
+                'placeholder' => 'Sélectionnez une ville',
+                'required' => true,
+                'mapped' => true,
+                'attr' => [
+                    'class' => 'city-select', // JS fonctionne
+                ],
+            ])
+
+
+
             ->add('npcontact', TextType::class, [
                 'label' => 'Nom -Prenom contact',
                 'attr' => [

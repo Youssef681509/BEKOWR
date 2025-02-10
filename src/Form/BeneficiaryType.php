@@ -2,7 +2,9 @@
 
 namespace App\Form;
 
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use App\Entity\Beneficiary;
+use App\Entity\Cities;
 use Symfony\Component\Form\AbstractType;
 use App\Form\Common\ConfigurationFieldTrait;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -18,6 +20,9 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType as TypeTextType;
 
+
+
+
 class BeneficiaryType extends AbstractType
 {
     use ConfigurationFieldTrait;
@@ -27,7 +32,15 @@ class BeneficiaryType extends AbstractType
         $builder
             ->add('firstName', TextType::class, $this->getConfiguration('Prénom(s)'))
             //->add('histo', TextType::class, $this->getConfiguration('Historique de donations'))
-
+            ->add('status', ChoiceType::class, [
+                'choices'  => [
+                    'Encours' => 'encours',
+                    'Accepté' => 'accepté',
+                    'Refusé' => 'refusé',
+                ],
+                'placeholder' => 'Sélectionnez un statut',
+                'required' => true,
+            ])
             ->add('histo', TextType::class, [
                 'label' => 'Historique de donations',
                 'attr' => [
@@ -35,6 +48,12 @@ class BeneficiaryType extends AbstractType
                     'style' => 'width: 180px;', 
                     'maxlength' => 15 
                 ],
+            ])
+            ->add('placeOfBirth', EntityType::class, [
+                'class' => Cities::class,
+                'choice_label' => 'name', 
+                'placeholder' => 'Choisir une ville',
+                'label' => 'Lieu de naissance',
             ])
             ->add('lastName', TextType::class, $this->getConfiguration('Nom(s)'))
             ->add('city', TextType::class, $this->getConfiguration('Ville'))
@@ -50,16 +69,12 @@ class BeneficiaryType extends AbstractType
                 ],
                 'label' => 'Titre de civilité'
             ])
-            // Ajout du statut (Déjà existant sur twig) -- Ygh 04/02/2025
-            ->add('Status', CheckboxType::class, [
-                'label' => 'Statut (Actif/Inactif)',
-                'required' => false,
-            ])
+            
             ->add('dateOfBirth', DateType::class, [
                 'widget' => 'single_text',
                 'label' => 'Date d\'anniversaire'
             ])
-            ->add('placeOfBirth', TypeTextType::class, $this->getConfiguration('Lieu de naissance'))
+            //->add('placeOfBirth', TypeTextType::class, $this->getConfiguration('Lieu de naissance'))
             ->add('titleOfIdDoc', ChoiceType::class, [
                 'choices' => [
                     'CNI' => 'CNI',
@@ -68,6 +83,13 @@ class BeneficiaryType extends AbstractType
                     'Autre a préciser' => 'OT'
                 ],
                 'label' => 'Titre pièce d\'identité'
+            ])
+            ->add('naturePieceIdentite', TextType::class, [
+                'required' => false,
+                'label' => 'Nature pièce d\'identité',
+                'attr' => [
+                    'class' => 'naturePieceIdentite'
+                ]
             ])
             ->add('idNumber', TextType::class, $this->getConfiguration('Numéro pièce d\'identité'))
             ->add('donSrvStrDate', DateType::class, [

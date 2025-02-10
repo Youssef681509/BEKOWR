@@ -21,8 +21,8 @@ class Donor
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 140, nullable: true)]
-    private ?string $bankAddress = null;
+    //#[ORM\Column(length: 140, nullable: true)]
+    //private ?string $bankAddress = null;
 
     #[ORM\Column(length: 100, nullable: false)]
     private ?string $npdonor = null;
@@ -30,6 +30,19 @@ class Donor
     #[ORM\ManyToOne(inversedBy: 'donors')]
     private ?Cities $city = null;
 
+    #[ORM\ManyToOne]
+    private ?Countries $country = null;
+
+    public function getCountry(): ?Countries
+    {
+    return $this->country;
+    }
+
+    public function setCountry(?Countries $country): static
+    {
+    $this->country = $country;
+    return $this;
+    }
     /**
      * @var Collection<int, Donation>
      */
@@ -52,18 +65,19 @@ class Donor
     {
         return $this->id;
     }
+    // Dans l'entité Donor
 
-    public function getBankAddress(): ?string
-    {
-        return $this->bankAddress;
-    }
+    //public function getBankAddress(): ?string
+    //{
+        //return $this->bankAddress;
+    //}
 
-    public function setBankAddress(?string $bankAddress): static
-    {
-        $this->bankAddress = $bankAddress;
+    //public function setBankAddress(?string $bankAddress): static
+    //{
+        //$this->bankAddress = $bankAddress;
 
-        return $this;
-    }
+        //return $this;
+    //}
 
     public function setnpdonor(string $npdonor): static 
     {
@@ -145,6 +159,22 @@ class Donor
     public function setCity(?Cities $city): static
     {
         $this->city = $city;
+
+        return $this;
+    }
+
+    #[ORM\ManyToOne(targetEntity: Bank::class)] // Ajout de la relation ManyToOne avec Bank
+    #[ORM\JoinColumn(nullable: false)] // On s'assure qu'un Donor doit toujours avoir une banque
+    private ?Bank $bank = null; // La propriété bank
+
+    public function getBank(): ?Bank
+    {
+        return $this->bank;
+    }
+
+    public function setBank(?Bank $bank): self
+    {
+        $this->bank = $bank;
 
         return $this;
     }

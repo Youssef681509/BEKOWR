@@ -16,7 +16,7 @@ class CountriesAutocompleteField extends AbstractType
     {
         $resolver->setDefaults([
             'class' => Countries::class,
-            'placeholder' => 'Choose a Countries',
+            'placeholder' => 'Choose a Country',
             'choice_label' => 'name',
             // 'choice_value' => 'name',
 

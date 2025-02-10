@@ -2,6 +2,10 @@
 
 namespace App\Form;
 
+
+use App\Entity\Bank;
+use App\Entity\Country;
+use App\Entity\Cities;
 use App\Entity\Countries;
 use App\Entity\Donor;
 use Symfony\Component\Form\AbstractType;
@@ -16,6 +20,8 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;  
+
 
 class DonorType extends AbstractType
 {
@@ -31,7 +37,7 @@ class DonorType extends AbstractType
         $builder
             ->add('companyName', TextType::class, $this->getConfiguration('Nom/ Raison Social', 'Nom/ Raison Social'))
             ->add('address', TextType::class, $this->getConfiguration('Adresse', 'Adresse'))
-            ->add('bankAddress', TextType::class, $this->getConfiguration('Adresse de la banque', ''))
+            //->add('bankAddress', TextType::class, $this->getConfiguration('Adresse de la banque', ''))
             ->add('npdonor', TextType::class, [
                 'label' => 'Nom -Prenom contact du donateur',
                 'attr' => [
@@ -40,15 +46,27 @@ class DonorType extends AbstractType
                     'maxlength' => 100 
                 ],
             ])
-            // ->add('city', TextType::class, $this->getConfiguration('Ville', ''))
             ->add('country', EntityType::class, [
                 'class' => Countries::class,
                 'choice_label' => 'name',
-                'mapped' => false,
-                'label' => 'Pays',
-                'placeholder' => 'Choisir un pays',
-                'autocomplete' => true,
+                'placeholder' => 'Sélectionnez un pays',
+                'mapped' => true,
+                'required' => true,
+                'attr' => [
+                    'class' => 'country-select', //  JS fonctionne
+                ],
             ])
+            ->add('city', EntityType::class, [
+                'class' => Cities::class,
+                'choice_label' => 'name',
+                'placeholder' => 'Sélectionnez une ville',
+                'required' => true,
+                'mapped' => true,
+                'attr' => [
+                    'class' => 'city-select', // JS fonctionne
+                ],
+            ])
+            
             ->add('phone1', TextType::class, $this->getConfiguration('Téléphone 1',''))
             ->add('phone2', TextType::class, $this->getConfiguration('Téléphone 2', required: false))
             ->add('phone3', TextType::class, $this->getConfiguration('Téléphone 3', required: false))
@@ -60,6 +78,12 @@ class DonorType extends AbstractType
                 attr: [
                     'rows' => 4,
                 ]))
+
+             ->add('bank', EntityType::class, [
+                    'class' => Bank::class,
+                    'choice_label' => 'company_name', // Le champ 'name' de l'entité Bank sera affiché
+                    'placeholder' => 'Choisissez une banque', // Optionnel : valeur par défaut
+                ])
         ;
         
          $builder->addEventSubscriber(new CountryFilterSubscriber());

@@ -25,9 +25,22 @@ class Cities
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $name = null;
 
-    #[ORM\ManyToOne(inversedBy: 'cities', cascade: ['persist', 'refresh', 'remove'])]
+    //#[ORM\ManyToOne(inversedBy: 'cities', cascade: ['persist', 'refresh', 'remove'])]
+    //private ?Country $country = null;
+    #[ORM\ManyToOne(targetEntity: Countries::class, inversedBy: 'cities')]
+    #[ORM\JoinColumn(nullable: false)]
     private ?Countries $country = null;
-
+    
+    public function getCountry(): ?Countries
+    {
+        return $this->country;
+    }
+    
+    public function setCountry(?Countries $country): static
+    {
+        $this->country = $country;
+        return $this;
+    }
     /**
      * @var Collection<int, Bank>
      */
@@ -80,22 +93,11 @@ class Cities
         return $this;
     }
 
-    public function getCountry(): ?Countries
-    {
-        return $this->country;
-    }
-
-    public function setCountry(?Countries $country): static
-    {
-        $this->country = $country;
-
-        return $this;
-    }
-
+    
     /**
      * @return Collection<int, Bank>
      */
-    public function getBanks(): Collection
+    public function getBank(): Collection
     {
         return $this->banks;
     }
